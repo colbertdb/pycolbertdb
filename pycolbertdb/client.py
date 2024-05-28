@@ -123,6 +123,10 @@ class Colbertdb(BaseModel):
             json={"api_key": self.api_key},
             timeout=TIMEOUT,
         )
+        if response.status_code != 200:
+            raise ValueError(
+                f"Failed to connect to the Colbertdb server - {response.json()['detail']}"
+            )
         self.access_token = response.json()["access_token"]
 
     def _get(self, path: str, data: Dict[str, Any]) -> Dict[str, Any]:
