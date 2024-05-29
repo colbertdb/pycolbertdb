@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pycolbertdb"
-version = "0.1.3"
+version = "0.2.0"
 description = "Python client for colbertdb"
 authors = ["Ryan Sloan <rysloan4@gmail.com>"]
 license = "MIT"

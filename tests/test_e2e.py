@@ -6,8 +6,9 @@ from pycolbertdb.client import Colbertdb
 
 @pytest.fixture
 def colbertdb():
-    client = Colbertdb(url="http://localhost:8080", api_key="API_KEY")
-    client.connect()
+    client = Colbertdb(
+        url="http://localhost:8080", api_key="supersecret", store_name="default"
+    )
     yield client
 
 

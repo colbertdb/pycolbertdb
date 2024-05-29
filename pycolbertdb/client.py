@@ -107,11 +107,21 @@ class Colbertdb(BaseModel):
 
     url: str = Field(..., title="The URL of the Colbertdb server")
     api_key: Optional[str] = Field(None, title="The API key for authentication")
+    store_name: Optional[str] = Field("default", title="The name of the store")
     access_token: Optional[str] = Field(
         None, title="The access token for authentication"
     )
 
-    def connect(self) -> Dict[str, Any]:
+    def __init__(
+        self,
+        url: str,
+        api_key: Optional[str] = None,
+        store_name: Optional[str] = "default",
+    ):
+        super().__init__(url=url, api_key=api_key, store_name=store_name)
+        self._connect()
+
+    def _connect(self) -> Dict[str, Any]:
         """
         Connects to the Colbertdb server and retrieves an access token.
 
@@ -119,8 +129,8 @@ class Colbertdb(BaseModel):
             Dict[str, Any]: The JSON response from the server.
         """
         response = requests.post(
-            f"{self.url}/client/connect",
-            json={"api_key": self.api_key},
+            f"{self.url}/api/v1/client/connect/{self.store_name}",
+            headers={"x-api-key": self.api_key},
             timeout=TIMEOUT,
         )
         if response.status_code != 200:
@@ -141,9 +151,9 @@ class Colbertdb(BaseModel):
             Dict[str, Any]: The JSON response from the server.
         """
         response = requests.get(
-            f"{self.url}/collections{path}",
+            f"{self.url}/api/v1/collections{path}",
             json=data,
-            headers={"Authorization": f"Bearer {self.api_key}"},
+            headers={"Authorization": f"Bearer {self.access_token}"},
             timeout=TIMEOUT,
         )
         response.raise_for_status()
@@ -162,9 +172,9 @@ class Colbertdb(BaseModel):
         """
         # This method is a placeholder for the actual implementation.
         response = requests.post(
-            f"{self.url}/collections{path}",
+            f"{self.url}/api/v1/collections{path}",
             json=data,
-            headers={"Authorization": f"Bearer {self.api_key}"},
+            headers={"Authorization": f"Bearer {self.access_token}"},
             timeout=TIMEOUT,
         )
         response.raise_for_status()
@@ -182,9 +192,9 @@ class Colbertdb(BaseModel):
             Dict[str, Any]: The JSON response from the server.
         """
         response = requests.delete(
-            f"{self.url}/collections{path}",
+            f"{self.url}/api/v1/collections{path}",
             json=data,
-            headers={"Authorization": f"Bearer {self.api_key}"},
+            headers={"Authorization": f"Bearer {self.access_token}"},
             timeout=TIMEOUT,
         )
         response.raise_for_status()
