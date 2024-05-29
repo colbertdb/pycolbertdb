@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-requests = "^2.31.0"
+requests = "^2.32.0"
 datamodel-code-generator = {extras = ["http"], version = "^0.25.6"}
 pytest = "^8.2.0"
 llama-index-readers-web = "^0.1.14"
