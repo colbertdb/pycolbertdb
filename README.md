@@ -1,5 +1,5 @@
-# Colbertdb Python Client
-This is a Python client for [ColBERTdb](https://www.github.com/colbertdb/colbertdb). It provides a simple interface for managing collections and documents, and for performing searches within collections.
+# colbertDB Python Client
+This is a Python client for [colbertDB](https://www.github.com/colbertdb/colbertdb). It provides a simple interface for managing collections and documents, and for performing searches within collections.
 
 ## Features
 - Create and manage collections: Easily create new collections and manage existing ones.
