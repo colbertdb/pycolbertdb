@@ -30,10 +30,25 @@ class CreateCollectionDocument(BaseModel):
     metadata: Optional[Dict[str, Any]] = Field(None, title="Metadata")
 
 
+class CreateCollectionsOptions(BaseModel):
+    """
+    Pydantic model for options for creating a collection.
+    """
+
+    force_create: Optional[bool] = False
+
+
 class CreateCollectionRequest(BaseModel):
-    name: str = Field(..., title="Name")
-    documents: List[CreateCollectionDocument] = Field(..., title="Documents")
-    options: Optional[Dict[str, Any]] = Field(None, title="Options")
+    """
+    Pydantic model for creating a collection.
+    """
+
+    class Config:
+        arbitrary_types_allowed = True
+
+    name: str
+    documents: list[CreateCollectionDocument]
+    options: Optional[CreateCollectionsOptions] = CreateCollectionsOptions()
 
 
 class DeleteDocumentsRequest(BaseModel):
