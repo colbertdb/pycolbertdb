@@ -5,6 +5,7 @@ import requests
 
 from pycolbertdb.models import (
     CreateCollectionRequest,
+    CreateCollectionsOptions,
     OperationResponse,
     SearchCollectionResponse,
     CreateCollectionDocument,
@@ -200,7 +201,10 @@ class Colbertdb(BaseModel):
         return response.json()
 
     def create_collection(
-        self, name: str, documents: List[CreateCollectionDocument]
+        self,
+        name: str,
+        documents: List[CreateCollectionDocument],
+        options: Optional[CreateCollectionsOptions],
     ) -> Collection:
         """
         Creates a new collection in the Colbertdb server.
@@ -215,7 +219,9 @@ class Colbertdb(BaseModel):
         """
         if len(documents) == 0:
             raise ValueError("At least one document must be provided.")
-        data = CreateCollectionRequest(name=name, documents=documents).model_dump()
+        data = CreateCollectionRequest(
+            name=name, documents=documents, options=options
+        ).model_dump()
         self._post("/", data)
         return Collection(name, self)
 
