@@ -5,7 +5,6 @@ import requests
 
 from pycolbertdb.models import (
     CreateCollectionRequest,
-    GetCollectionResponse,
     OperationResponse,
     SearchCollectionResponse,
     CreateCollectionDocument,
