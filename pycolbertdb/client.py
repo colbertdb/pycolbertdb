@@ -204,7 +204,7 @@ class Colbertdb(BaseModel):
         self,
         name: str,
         documents: List[CreateCollectionDocument],
-        options: Optional[CreateCollectionsOptions] = CreateCollectionsOptions(),
+        options: Optional[CreateCollectionsOptions] = None,
     ) -> Collection:
         """
         Creates a new collection in the Colbertdb server.
@@ -219,6 +219,8 @@ class Colbertdb(BaseModel):
         """
         if len(documents) == 0:
             raise ValueError("At least one document must be provided.")
+        if options is None:
+            options = CreateCollectionsOptions()
         data = CreateCollectionRequest(
             name=name, documents=documents, options=options
         ).model_dump()
