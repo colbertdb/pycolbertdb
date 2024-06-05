@@ -204,7 +204,7 @@ class Colbertdb(BaseModel):
         self,
         name: str,
         documents: List[CreateCollectionDocument],
-        options: Optional[CreateCollectionsOptions],
+        options: Optional[CreateCollectionsOptions] = CreateCollectionsOptions(),
     ) -> Collection:
         """
         Creates a new collection in the Colbertdb server.
